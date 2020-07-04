@@ -4,11 +4,11 @@
 Controller master (ControllerId::master);
 Controller partner (ControllerId::partner);
 
-Motor RightRollerMotor(11, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor LeftRollerMotor(18, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor Intake(21, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor OutTake(19, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-MotorGroup Roller({-11, 18});
+Motor RightRollerMotor(11, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor LeftRollerMotor(21, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor Intake(20, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor OutTake(12, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+MotorGroup Roller({11, -21});
 
 ADIEncoder AnglerAngle('A', 'B', true);
 int startingAnglerAngle;
@@ -36,12 +36,15 @@ void opcontrol() {
 
     if (master.getDigital(ControllerDigital::L2)) {
       Intake.moveVelocity(500);
+      Roller.moveVelocity(200);
     }
     else if (master.getDigital(ControllerDigital::L1)) {
       Intake.moveVelocity(-500);
+      Roller.moveVelocity(-200);
     }
     else {
       Intake.moveVelocity(0);
+      Roller.moveVelocity(0);
     }
 
     if (master.getDigital(ControllerDigital::R2)) {
