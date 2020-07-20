@@ -47,9 +47,11 @@ void opcontrol() {
 
     if (master.getDigital(ControllerDigital::R2)) {
       OutTake.moveVelocity(500);
+      Intake.moveVelocity(500);
     }
     else if (master.getDigital(ControllerDigital::R1)) {
       OutTake.moveVelocity(-500);
+      Intake.moveVelocity(-500);
     }
     else {
       OutTake.moveVelocity(0);
