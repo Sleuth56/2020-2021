@@ -1,6 +1,6 @@
 #include "main.h"
 
-ADIEncoder leftEncoder('E', 'F');
+ADIEncoder leftEncoder('A', 'B');
 ADIEncoder rightEncoder('C', 'D');
 
 bool chassisBrake = false;
