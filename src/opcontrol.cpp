@@ -4,11 +4,11 @@
 Controller master (ControllerId::master);
 Controller partner (ControllerId::partner);
 
-Motor RightRollerMotor(11, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor LeftRollerMotor(21, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor Intake(20, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor OutTake(12, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-MotorGroup Roller({11, -21});
+Motor RightRollerMotor(17, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor LeftRollerMotor(5, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor Intake(16, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor OutTake(15, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+MotorGroup Roller({17, -5});
 
 int startingAnglerAngle;
 
@@ -40,21 +40,28 @@ void opcontrol() {
       Intake.moveVelocity(-500);
       Roller.moveVelocity(-200);
     }
-    else {
-      Intake.moveVelocity(0);
-      Roller.moveVelocity(0);
-    }
 
-    if (master.getDigital(ControllerDigital::R2)) {
-      OutTake.moveVelocity(600);
+    else if (master.getDigital(ControllerDigital::R2)) {
+      OutTake.moveVelocity(-600);
       Intake.moveVelocity(500);
     }
     else if (master.getDigital(ControllerDigital::R1)) {
+      OutTake.moveVelocity(600);
+      Intake.moveVelocity(-500);
+    }
+
+    else if (master.getDigital(ControllerDigital::up)) {
       OutTake.moveVelocity(-600);
       Intake.moveVelocity(-500);
     }
+    else if (master.getDigital(ControllerDigital::down)) {
+      OutTake.moveVelocity(600);
+      Intake.moveVelocity(500);
+    }
     else {
       OutTake.moveVelocity(0);
+      Intake.moveVelocity(0);
+      Roller.moveVelocity(0);
     }
 
     pros::delay(20);

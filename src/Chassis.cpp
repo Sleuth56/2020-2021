@@ -5,10 +5,10 @@ ADIEncoder rightEncoder('C', 'D');
 
 bool chassisBrake = false;
 
-Motor frontLeftMotor(9, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor backLeftMotor(10, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor frontRightMotor(2, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor backRightMotor(1, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor frontLeftMotor(13, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor backLeftMotor(20, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor frontRightMotor(14, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor backRightMotor(19, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 
 std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
 	.withMotors(frontLeftMotor, frontRightMotor, backRightMotor, backLeftMotor)
