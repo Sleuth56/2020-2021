@@ -6,9 +6,9 @@ Controller partner (ControllerId::partner);
 
 Motor RightRollerMotor(17, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor LeftRollerMotor(5, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor Intake(16, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor Intake(16, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor OutTake(15, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-MotorGroup Roller({17, -5});
+MotorGroup Roller({-17, 5});
 
 int startingAnglerAngle;
 
@@ -32,32 +32,25 @@ void opcontrol() {
     lv_chart_set_next(chart, PurpleLine, Intake.getTemperature());
     lv_chart_set_next(chart, OrangeLine, OutTake.getTemperature());
 
-    if (master.getDigital(ControllerDigital::L2)) {
-      Intake.moveVelocity(500);
-      Roller.moveVelocity(200);
+    if (master.getDigital(ControllerDigital::L1)) {
+      Intake.moveVelocity(600);
+      Roller.moveVelocity(400);
     }
-    else if (master.getDigital(ControllerDigital::L1)) {
-      Intake.moveVelocity(-500);
-      Roller.moveVelocity(-200);
+    else if (master.getDigital(ControllerDigital::L2)) {
+      Intake.moveVelocity(-600);
+      Roller.moveVelocity(-400);
+      OutTake.moveVelocity(-600);
     }
 
     else if (master.getDigital(ControllerDigital::R2)) {
       OutTake.moveVelocity(-600);
-      Intake.moveVelocity(500);
+      Intake.moveVelocity(600);
     }
     else if (master.getDigital(ControllerDigital::R1)) {
       OutTake.moveVelocity(600);
-      Intake.moveVelocity(-500);
+      Intake.moveVelocity(600);
     }
 
-    else if (master.getDigital(ControllerDigital::up)) {
-      OutTake.moveVelocity(-600);
-      Intake.moveVelocity(-500);
-    }
-    else if (master.getDigital(ControllerDigital::down)) {
-      OutTake.moveVelocity(600);
-      Intake.moveVelocity(500);
-    }
     else {
       OutTake.moveVelocity(0);
       Intake.moveVelocity(0);
