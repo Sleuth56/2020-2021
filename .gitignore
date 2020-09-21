@@ -1,16 +1,16 @@
-# Folders #
-########################################
-bin/
-.d/
+# Compiled Object files
+*.o
+*.obj
 
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
+# Executables
+*.bin
+*.elf
+
+# PROS
+bin/
+.vscode/
+compile_commands.json
+temp.log
+temp.errors
+*.ini
+.d/
