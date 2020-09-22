@@ -6,7 +6,7 @@ Controller partner (ControllerId::partner);
 
 Motor RightRollerMotor(17, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor LeftRollerMotor(5, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor Intake(16, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor Intake(19, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor OutTake(15, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 MotorGroup Roller({-17, 5});
 

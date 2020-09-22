@@ -8,7 +8,7 @@ bool chassisBrake = false;
 Motor frontLeftMotor(13, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor backLeftMotor(20, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor frontRightMotor(14, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor backRightMotor(19, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor backRightMotor(18, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 
 std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
 	.withMotors(frontLeftMotor, frontRightMotor, backRightMotor, backLeftMotor)
@@ -19,7 +19,7 @@ std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
         {0.002, 0, 0}, // Turn controller gains
         {0.002, 0, 0.00006}  // Angle controller gains (helps drive straight)
     )
-    .withDimensions(AbstractMotor::gearset::green, {{4_in, 14_in}, imev5GreenTPR})
+    .withDimensions(AbstractMotor::gearset::green, {{4_in, 12_in}, imev5GreenTPR})
     .withOdometry() // use the same scales as the chassis (above)
     .buildOdometry(); // build an odometry chassis
 
