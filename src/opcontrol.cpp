@@ -4,6 +4,9 @@
 Controller master (ControllerId::master);
 Controller partner (ControllerId::partner);
 
+pros::ADIAnalogIn TopBall('A');
+pros::ADIAnalogIn BottomBall('B');
+
 Motor RightRollerMotor(17, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor LeftRollerMotor(5, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor Intake(19, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
@@ -35,6 +38,12 @@ void opcontrol() {
     if (master.getDigital(ControllerDigital::L1)) {
       Intake.moveVelocity(600);
       Roller.moveVelocity(400);
+      if (TopBall.get_value() > 2800) {
+        OutTake.moveVelocity(200);
+      }
+      else {
+        OutTake.moveVelocity(0);
+      }
     }
     else if (master.getDigital(ControllerDigital::L2)) {
       Intake.moveVelocity(-600);
