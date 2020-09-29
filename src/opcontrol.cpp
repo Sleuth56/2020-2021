@@ -4,8 +4,7 @@
 Controller master (ControllerId::master);
 Controller partner (ControllerId::partner);
 
-pros::ADIAnalogIn TopBall('A');
-pros::ADIAnalogIn BottomBall('B');
+pros::ADIUltrasonic BallDetector('A', 'B');
 
 Motor RightRollerMotor(17, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor LeftRollerMotor(5, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
@@ -35,10 +34,12 @@ void opcontrol() {
     lv_chart_set_next(chart, PurpleLine, Intake.getTemperature());
     lv_chart_set_next(chart, OrangeLine, OutTake.getTemperature());
 
+    updateLineVariable(2, BallDetector.get_value());
+
     if (master.getDigital(ControllerDigital::L1)) {
       Intake.moveVelocity(600);
       Roller.moveVelocity(400);
-      if (TopBall.get_value() > 2800) {
+      if (BallDetector.get_value() > 170) {
         OutTake.moveVelocity(200);
       }
       else {
