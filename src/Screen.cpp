@@ -276,7 +276,7 @@ void updateLineVariable(int line, double value) {
       break;
   }
   lv_label_set_text(txt, (  "Robot Heading: " + to_string(robotHeading) + '\n' +
-                            "Lift Position: " + to_string(middleEncoderValue) + '\n' +
+                            "Ball Detector: " + to_string(middleEncoderValue) + '\n' +
                             "Left Encoder: " + to_string(leftMotorValue) + '\n' +
                             "Right Encoder: " + to_string(rightMotorValue) + '\n' +
                             "Test switches: " + to_string(test1) + " " + to_string(test2) +

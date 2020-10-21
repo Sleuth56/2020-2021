@@ -6,8 +6,8 @@ Controller partner (ControllerId::partner);
 
 pros::ADIUltrasonic BallDetector('A', 'B');
 
-Motor RightRollerMotor(17, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor LeftRollerMotor(5, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor RightRollerMotor(17, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor LeftRollerMotor(5, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor Intake(19, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 Motor OutTake(15, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
 MotorGroup Roller({-17, 5});
@@ -20,7 +20,6 @@ void opcontrol() {
   chassis->setTurnsMirrored(false);
   // Seting the motor brake mode to hold
   Intake.setBrakeMode(AbstractMotor::brakeMode::hold);
-  Roller.setBrakeMode(AbstractMotor::brakeMode::hold);
   OutTake.setBrakeMode(AbstractMotor::brakeMode::hold);
   
   // Creating controller buttons
@@ -38,8 +37,8 @@ void opcontrol() {
 
     if (master.getDigital(ControllerDigital::L1)) {
       Intake.moveVelocity(600);
-      Roller.moveVelocity(400);
-      if (BallDetector.get_value() > 170) {
+      Roller.moveVelocity(200);
+      if (BallDetector.get_value() > 170 || BallDetector.get_value() == -1) {
         OutTake.moveVelocity(200);
       }
       else {
@@ -48,7 +47,7 @@ void opcontrol() {
     }
     else if (master.getDigital(ControllerDigital::L2)) {
       Intake.moveVelocity(-600);
-      Roller.moveVelocity(-400);
+      Roller.moveVelocity(-200);
       OutTake.moveVelocity(-600);
     }
 

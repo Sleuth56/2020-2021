@@ -3,10 +3,12 @@
 // When set to true driver code stops
 bool isAuton = false;
 
-void blueLarge() {
+void blueSmall() {
+  chassis->moveDistance(2_ft);
+  chassis->turnAngle(90_deg);
 }
 
-void blueSmall() {
+void blueLarge() {
 }
 
 void redSmall() {
@@ -32,7 +34,7 @@ void autonomous() {
   lv_tabview_set_tab_act(tabview, 2, true);
   
   switch (selectedAuton) {
-    case 5: blueSmall();
+    case 1: blueSmall();
       break;
     case 2: blueSafe();
       break;
@@ -40,7 +42,7 @@ void autonomous() {
       break;
     case 4: Skills();
       break;
-    case 1: redLarge();
+    case 5: redLarge();
       break;
     case 6: redSafe();
       break;
