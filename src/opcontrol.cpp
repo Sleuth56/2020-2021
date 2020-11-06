@@ -4,14 +4,14 @@
 Controller master (ControllerId::master);
 Controller partner (ControllerId::partner);
 
-pros::ADIUltrasonic TopBallDetector('A', 'B');
-pros::ADIUltrasonic BottomBallDetector('C', 'D');
+pros::ADIUltrasonic TopBallDetector('G', 'H');
+pros::ADIUltrasonic BottomBallDetector('E', 'F');
 
-Motor RightRollerMotor(17, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor LeftRollerMotor(5, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor RightRollerMotor(5, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor LeftRollerMotor(3, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor Intake(19, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor OutTake(15, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-MotorGroup Roller({-17, 5});
+Motor OutTake(20, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+MotorGroup Roller({-5, 3});
 
 int startingAnglerAngle;
 

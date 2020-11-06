@@ -1,14 +1,14 @@
 #include "main.h"
 
-ADIEncoder leftEncoder('G', 'H');
-ADIEncoder rightEncoder('E', 'F');
+ADIEncoder leftEncoder('C', 'D');
+ADIEncoder rightEncoder('A', 'B');
 
 bool chassisBrake = false;
 
-Motor frontLeftMotor(13, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor backLeftMotor(20, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor frontRightMotor(14, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor backRightMotor(18, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor frontLeftMotor(7, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor backLeftMotor(8, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor frontRightMotor(4, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor backRightMotor(6, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 
 std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
 	.withMotors(frontLeftMotor, frontRightMotor, backRightMotor, backLeftMotor)
