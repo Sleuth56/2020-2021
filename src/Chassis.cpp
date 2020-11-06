@@ -37,8 +37,8 @@ void ChassisOpcontrol(void* param) {
 
   while (isAuton == false) {
     //Updates display values.
-		updateLineVariable(3, leftEncoder.get());
-		updateLineVariable(4, rightEncoder.get());
+		updateLineVariable(4, leftEncoder.get());
+		updateLineVariable(5, rightEncoder.get());
     
     // // Graphs the drive motor temps
     lv_chart_set_next(chart, NavyLine, frontLeftMotor.getTemperature());

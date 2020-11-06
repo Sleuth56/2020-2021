@@ -194,12 +194,12 @@ void runScreen() {
     
     legand = lv_label_create(tab3, NULL);
     lv_obj_align(legand, NULL, LV_ALIGN_IN_TOP_MID, 80 , 30);
-    lv_label_set_text(legand, "Purple: Angler Motor\n"
-                              "Orange: Lift Motor\n"
+    lv_label_set_text(legand, "Purple: Intake Motor\n"
+                              "Orange: Outake Motor\n"
                               "Silver: Left Roller\n"
                               "White: Right Roller\n"
-                              "Blue: Front Drive\n"
-                              "Green: Back Drive");
+                              "Blue: Left Drive\n"
+                              "Green: Right Drive");
 
   //Creates box that conatins displayed variables.
   lv_obj_t * box1;
@@ -259,26 +259,30 @@ void runScreen() {
 }
 
 
-double robotHeading;
-double middleEncoderValue;
-double leftMotorValue;
-double rightMotorValue;
+double firstLine;
+double secondLine;
+double thirdLine;
+double forthLine;
+double fithLine;
 
 void updateLineVariable(int line, double value) {
   switch (line){
-    case 1: robotHeading = value;
+    case 1: firstLine = value;
       break;
-    case 2: middleEncoderValue = value;
+    case 2: secondLine = value;
       break;
-    case 3: leftMotorValue = value;
+    case 3: thirdLine = value;
       break;
-    case 4: rightMotorValue = value;
+    case 4: forthLine = value;
+      break;
+    case 5: fithLine = value;
       break;
   }
-  lv_label_set_text(txt, (  "Robot Heading: " + to_string(robotHeading) + '\n' +
-                            "Ball Detector: " + to_string(middleEncoderValue) + '\n' +
-                            "Left Encoder: " + to_string(leftMotorValue) + '\n' +
-                            "Right Encoder: " + to_string(rightMotorValue) + '\n' +
+  lv_label_set_text(txt, (  "Robot Heading: " + to_string(firstLine) + '\n' +
+                            "Top Ball Detector: " + to_string(secondLine) + '\n' +
+                            "Bottom Ball Detector: " + to_string(thirdLine) + '\n' +
+                            "Left Encoder: " + to_string(forthLine) + '\n' +
+                            "Right Encoder: " + to_string(fithLine) + '\n' +
                             "Test switches: " + to_string(test1) + " " + to_string(test2) +
                             " " + to_string(test3) + '\n').c_str());
 }

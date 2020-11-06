@@ -35,14 +35,22 @@ void opcontrol() {
     lv_chart_set_next(chart, OrangeLine, OutTake.getTemperature());
 
     updateLineVariable(2, TopBallDetector.get_value());
+    updateLineVariable(3, BottomBallDetector.get_value());
 
     if (master.getDigital(ControllerDigital::L1)) {
-      Intake.moveVelocity(600);
       Roller.moveVelocity(200);
-      if (TopBallDetector.get_value() > 170 || TopBallDetector.get_value() == -1) {
-        OutTake.moveVelocity(200);
+      
+      if (TopBallDetector.get_value() > 100 || TopBallDetector.get_value() == -1) {
+        Intake.moveVelocity(600);
+        OutTake.moveVelocity(600);
       }
       else {
+        if (BottomBallDetector.get_value() > 100 || BottomBallDetector.get_value() == -1) {
+          Intake.moveVelocity(600);
+        }
+        else {
+          Intake.moveVelocity(0);
+        }
         OutTake.moveVelocity(0);
       }
     }
