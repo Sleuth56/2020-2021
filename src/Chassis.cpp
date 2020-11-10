@@ -12,14 +12,14 @@ Motor backRightMotor(6, true, AbstractMotor::gearset::green, AbstractMotor::enco
 
 std::shared_ptr<OdomChassisController> chassis = ChassisControllerBuilder()
 	.withMotors(frontLeftMotor, frontRightMotor, backRightMotor, backLeftMotor)
-  .withMaxVelocity(150)
+  .withMaxVelocity(70)
   .withSensors(leftEncoder, rightEncoder)
     .withGains(
         {0.0025, 0, 0}, // Distance controller gains
         {0.002, 0, 0}, // Turn controller gains
         {0.002, 0, 0.00006}  // Angle controller gains (helps drive straight)
     )
-    .withDimensions(AbstractMotor::gearset::green, {{4_in, 12_in}, imev5GreenTPR})
+    .withDimensions(AbstractMotor::gearset::green, {{4_in, 5.5_in}, imev5GreenTPR})
     .withOdometry() // use the same scales as the chassis (above)
     .buildOdometry(); // build an odometry chassis
 

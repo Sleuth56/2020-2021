@@ -16,6 +16,7 @@ MotorGroup Roller({-5, 3});
 int startingAnglerAngle;
 
 void opcontrol() {
+  chassis->moveDistance(0_ft);
   isAuton = false;
   lv_tabview_set_tab_act(tabview, 3, true);
   chassis->setTurnsMirrored(false);

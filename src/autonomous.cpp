@@ -4,8 +4,13 @@
 bool isAuton = false;
 
 void blueSmall() {
-  chassis->moveDistance(2_ft);
+  // chassis->moveDistance(4_ft);
+  // chassis->turnAngle(-90_deg);
+  // chassis->moveDistance(2_ft);
   chassis->turnAngle(90_deg);
+  // chassis->moveDistance(2_ft);
+  // OutTake.moveVelocity(600);
+  // chassis->turnToPoint(0, 1);
 }
 
 void blueLarge() {

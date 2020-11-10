@@ -3,11 +3,11 @@
 
 extern Controller master;
 
-extern okapi::Motor LiftMotor;
-extern okapi::Motor RightRoolerMotor;
-extern okapi::Motor LeftRollerMotor;
-extern okapi::Motor AnglerMotor;
-extern okapi::MotorGroup Roller;
+extern pros::ADIUltrasonic TopBallDetector;
+extern pros::ADIUltrasonic BottomBallDetector;
 
-extern int startingAnglerAngle;
-extern int startingAnglerAngle;
+extern okapi::Motor RightRollerMotor;
+extern okapi::Motor LeftRollerMotor;
+extern okapi::Motor Intake;
+extern okapi::Motor OutTake;
+extern okapi::MotorGroup Roller;
