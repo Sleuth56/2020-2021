@@ -3,8 +3,8 @@
 
 extern Controller master;
 
-extern pros::ADIUltrasonic TopBallDetector;
-extern pros::ADIUltrasonic BottomBallDetector;
+extern DistanceSensor TopBallDetector;
+extern DistanceSensor BottomBallDetector;
 
 extern okapi::Motor RightRollerMotor;
 extern okapi::Motor LeftRollerMotor;

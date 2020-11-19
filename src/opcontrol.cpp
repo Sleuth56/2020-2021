@@ -4,8 +4,8 @@
 Controller master (ControllerId::master);
 Controller partner (ControllerId::partner);
 
-pros::ADIUltrasonic TopBallDetector('G', 'H');
-pros::ADIUltrasonic BottomBallDetector('E', 'F');
+DistanceSensor TopBallDetector(13);
+DistanceSensor BottomBallDetector(12);
 
 Motor RightRollerMotor(5, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor LeftRollerMotor(3, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
@@ -16,7 +16,6 @@ MotorGroup Roller({-5, 3});
 int startingAnglerAngle;
 
 void opcontrol() {
-  chassis->moveDistance(0_ft);
   isAuton = false;
   lv_tabview_set_tab_act(tabview, 3, true);
   chassis->setTurnsMirrored(false);
@@ -35,18 +34,18 @@ void opcontrol() {
     lv_chart_set_next(chart, PurpleLine, Intake.getTemperature());
     lv_chart_set_next(chart, OrangeLine, OutTake.getTemperature());
 
-    updateLineVariable(2, TopBallDetector.get_value());
-    updateLineVariable(3, BottomBallDetector.get_value());
+    updateLineVariable(2, TopBallDetector.get());
+    updateLineVariable(3, BottomBallDetector.get());
 
     if (master.getDigital(ControllerDigital::L1)) {
       Roller.moveVelocity(200);
       
-      if (TopBallDetector.get_value() > 100 || TopBallDetector.get_value() == -1) {
+      if (TopBallDetector.get() > 30 || TopBallDetector.get() == -1) {
         Intake.moveVelocity(600);
         OutTake.moveVelocity(600);
       }
       else {
-        if (BottomBallDetector.get_value() > 100 || BottomBallDetector.get_value() == -1) {
+        if (BottomBallDetector.get() > 30 || BottomBallDetector.get() == -1) {
           Intake.moveVelocity(600);
         }
         else {
