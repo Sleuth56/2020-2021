@@ -60,7 +60,7 @@ void opcontrol() {
       OutTake.moveVelocity(-600);
     }
 
-    else if (master.getDigital(ControllerDigital::R2)) {
+    if (master.getDigital(ControllerDigital::R2)) {
       OutTake.moveVelocity(-600);
       Intake.moveVelocity(600);
     }
@@ -69,7 +69,7 @@ void opcontrol() {
       Intake.moveVelocity(600);
     }
 
-    else {
+    if (!master.getDigital(ControllerDigital::L1) && !master.getDigital(ControllerDigital::L2) && !master.getDigital(ControllerDigital::R1) && !master.getDigital(ControllerDigital::R2)) {
       OutTake.moveVelocity(0);
       Intake.moveVelocity(0);
       Roller.moveVelocity(0);

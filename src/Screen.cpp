@@ -2,7 +2,6 @@
 using std::string;
 using std::to_string;
 
-int selectedAuton = 2;
 bool test1 = false;
 bool test2 = false;
 bool test3 = false;

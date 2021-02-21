@@ -17,7 +17,6 @@ extern lv_chart_series_t * WhiteLine;
 extern lv_chart_series_t * PurpleLine;
 extern lv_chart_series_t * OrangeLine;
 
-extern int selectedAuton;
 extern bool test1;
 extern bool test2;
 extern bool test3;
