@@ -60,6 +60,7 @@ void moveDistance(okapi::QLength distance, int timeout) {
 // pros::Task stopForBall_TR(stopForBall, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "My Task");
 
 void blueSmall() {
+  chassis->moveDistance(2_ft);
 }
 
 void blueSafe() {
@@ -248,7 +249,7 @@ void Skills () {
 void redSafe() {
 }
 
-int selectedAuton = 4;
+int selectedAuton = 1;
 // Part of the auton selector code
 void (*scripts[])() = {&redLarge, &redSmall, &blueLarge, &blueSmall};
 void LCDScriptExecute() { scripts[selectedAuton - 1](); }

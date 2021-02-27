@@ -1,8 +1,8 @@
 #include "main.h"
 #pragma once
 
-extern ADIEncoder leftEncoder;
-extern ADIEncoder rightEncoder;
+extern RotationSensor leftEncoder;
+extern RotationSensor rightEncoder;
 
 extern Motor frontLeftMotor;
 extern Motor backLeftMotor;

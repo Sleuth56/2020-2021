@@ -1,7 +1,7 @@
 #include "main.h"
 
-ADIEncoder leftEncoder('C', 'D');
-ADIEncoder rightEncoder('A', 'B');
+RotationSensor leftEncoder(9, true);
+RotationSensor rightEncoder(10, true);
 
 bool chassisBrake = false;
 
@@ -11,16 +11,15 @@ Motor frontRightMotor(4, true, AbstractMotor::gearset::green, AbstractMotor::enc
 Motor backRightMotor(6, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 
 std::shared_ptr<OdomChassisController> chassis =ChassisControllerBuilder()
-    .withMaxVelocity(75)
+    .withMaxVelocity(150)
     .withMotors({7, 8}, {-6, -4})
     .withGains(
-        {0.01, 0, 0}, // distance controller gains
+        {0.001, 0, 0.0000002}, // distance controller gains
         {0.01, 0, 0}, // turn controller gains
         {0.004, 0, 0}  // angle controller gains (helps drive straight)
     )
     // green gearset, 4 inch wheel diameter, 11.5 inch wheelbase
     .withDimensions(AbstractMotor::gearset::green, {{4_in, 12_in}, imev5GreenTPR})
-    // left encoder in ADI ports A & B, right encoder in ADI ports C & D (reversed)
     .withSensors(leftEncoder, rightEncoder)
     // specify the tracking wheels diameter (2.75 in), track (7 in), and TPR (360)
     .withOdometry({{4_in, 12_in}, quadEncoderTPR}, StateMode::FRAME_TRANSFORMATION)
