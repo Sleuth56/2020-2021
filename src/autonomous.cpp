@@ -61,6 +61,7 @@ void moveDistance(okapi::QLength distance, int timeout) {
 
 void blueSmall() {
   chassis->moveDistance(2_ft);
+  // chassis->turnAngle(90_deg);
 }
 
 void blueSafe() {

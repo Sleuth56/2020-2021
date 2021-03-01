@@ -11,12 +11,12 @@ Motor frontRightMotor(4, true, AbstractMotor::gearset::green, AbstractMotor::enc
 Motor backRightMotor(6, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 
 std::shared_ptr<OdomChassisController> chassis =ChassisControllerBuilder()
-    .withMaxVelocity(150)
+    .withMaxVelocity(100)
     .withMotors({7, 8}, {-6, -4})
     .withGains(
-        {0.001, 0, 0.0000002}, // distance controller gains
-        {0.01, 0, 0}, // turn controller gains
-        {0.004, 0, 0}  // angle controller gains (helps drive straight)
+        {0.0019, 0.000003, 0.000003}, // distance controller gains
+        {0.001, 0, 0.000003}, // turn controller gains
+        {0.0015, 0, 0.000008}  // angle controller gains (helps drive straight)
     )
     // green gearset, 4 inch wheel diameter, 11.5 inch wheelbase
     .withDimensions(AbstractMotor::gearset::green, {{4_in, 12_in}, imev5GreenTPR})
