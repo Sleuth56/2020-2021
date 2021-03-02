@@ -2,29 +2,8 @@
 
 // When set to true driver code stops
 bool isAuton = false;
-bool waitingForBall = false;
-
-void stopForBall(void* param) {
-  while (true) {
-    if (waitingForBall == true && BottomBallDetector.get() < 100) {
-      Intake.moveVelocity(0);
-      waitingForBall = false;
-    }
-    pros::delay(20);
-  }
-}
-
-void waitTillClear() {
-    while (true) {
-    if (TopBallDetector.get() > 100 && BottomBallDetector.get() > 100) {
-      break;
-    }
-    pros::delay(20);
-  }
-}
 
 void CycleBalls(int Number = 1) {
-  // Roller.moveVelocity(200); 
   Intake.moveVelocity(600); OutTake.moveVelocity(600);
   int a = 1;
   for (int i = 1; i <= Number; ++i) {
@@ -57,78 +36,19 @@ void moveDistance(okapi::QLength distance, int timeout) {
      }
 }
 
+void intakeController() {
+  
+}
+
 // pros::Task stopForBall_TR(stopForBall, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "My Task");
 
 void blueSmall() {
   chassis->moveDistance(2_ft);
+  
   // chassis->turnAngle(90_deg);
 }
 
 void blueSafe() {
-  Roller.moveVelocity(200); Intake.moveVelocity(600); OutTake.moveVelocity(200);
-  while (TopBallDetector.get() > 100 || TopBallDetector.get() == -1) {
-    pros::delay(20);
-  }
-  OutTake.moveVelocity(0);
-  waitingForBall = true;
-  chassis->moveDistance(1.7_ft);
-  Roller.moveVelocity(0); OutTake.moveVelocity(0);  
-  chassis->turnAngle(132_deg);
-  moveDistance(2.3_ft, 2300);
-  Intake.moveVelocity(600); OutTake.moveVelocity(600);
-  pros::delay(600);
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-
-  chassis->moveDistance(-1.2_ft);
-  chassis->turnAngle(-129_deg);
-  Roller.moveVelocity(200); Intake.moveVelocity(600); OutTake.moveVelocity(200);
-  while (TopBallDetector.get() > 100 || TopBallDetector.get() == -1) {
-    pros::delay(20);
-  }
-  OutTake.moveVelocity(0);
-  chassis->moveDistance(4.2_ft);
-  pros::delay(550);
-  Roller.moveVelocity(0); OutTake.moveVelocity(0); Intake.moveVelocity(0);
-  chassis->turnAngle(93_deg);
-  Roller.moveVelocity(0);
-  moveDistance(1_ft, 2000);
-  Roller.moveVelocity(200); Intake.moveVelocity(500); OutTake.moveVelocity(500);
-  waitTillClear();
-  Roller.moveVelocity(0);
-  pros::delay(2000);
-  Roller.moveVelocity(-200); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-  
-  chassis->moveDistance(-1.8_ft);
-  Roller.moveVelocity(0);
-  chassis->turnAngle(-88_deg);
-  Roller.moveVelocity(200); Intake.moveVelocity(300); OutTake.moveVelocity(200);
-  chassis->moveDistance(4_ft);
-  int timeout = pros::millis() + 10000;
-  while (TopBallDetector.get() > 100 && timeout > pros::millis()) {
-    pros::delay(20);
-  }
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-  chassis->turnAngle(64_deg);
-  moveDistance(2.5_ft, 3000);
-  Roller.moveVelocity(0); Intake.moveVelocity(500); OutTake.moveVelocity(500);
-  while (TopBallDetector.get() > 100 || BottomBallDetector.get() > 100) {
-    pros::delay(20);
-  }
-  pros::delay(1000);
-  chassis->moveDistance(-2_ft);
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-
-  chassis->turnAngle(-157_deg);
-  Roller.moveVelocity(200); Intake.moveVelocity(600);
-  waitingForBall = true;
-  chassis->moveDistance(6_ft);
-  chassis->turnAngle(44_deg);
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-  moveDistance(2_ft, 2000);
-  Roller.moveVelocity(200); Intake.moveVelocity(600); OutTake.moveVelocity(600);
-  pros::delay(2000);
-  chassis->moveDistance(-2_ft);
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
 }
 // Position State check.
 // Should end up at the close center ball in between the middle goals
@@ -250,7 +170,7 @@ void Skills () {
 void redSafe() {
 }
 
-int selectedAuton = 1;
+int selectedAuton = 4;
 // Part of the auton selector code
 void (*scripts[])() = {&redLarge, &redSmall, &blueLarge, &blueSmall};
 void LCDScriptExecute() { scripts[selectedAuton - 1](); }
