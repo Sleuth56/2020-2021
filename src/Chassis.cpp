@@ -25,11 +25,13 @@ std::shared_ptr<OdomChassisController> chassis =ChassisControllerBuilder()
     .withOdometry({{4_in, 12_in}, quadEncoderTPR}, StateMode::FRAME_TRANSFORMATION)
     .buildOdometry();
 
-std::shared_ptr<okapi::SkidSteerModel> driveTrain = std::dynamic_pointer_cast<SkidSteerModel>(chassis->getModel());
+// std::shared_ptr<okapi::SkidSteerModel> driveTrain = std::dynamic_pointer_cast<SkidSteerModel>(chassis->getModel());
 
 // Thread that controls the chassis
 void ChassisOpcontrol(void* param) {
-  chassis->moveDistance(0_in);
+  chassis.get()->stop();
+  double CubedTurn = 0;
+  double MasterY = 0;
 
   while (isAuton == false) {
     //Updates display values.
@@ -42,7 +44,14 @@ void ChassisOpcontrol(void* param) {
     lv_chart_set_next(chart, GreenLine, frontRightMotor.getTemperature());
     lv_chart_set_next(chart, LimeLine, backRightMotor.getTemperature());
 
-    chassis->getModel()->arcade(master.getAnalog(ControllerAnalog::leftY), master.getAnalog(ControllerAnalog::rightX), 0.3);
+    if (abs(master.getAnalog(ControllerAnalog::rightX)) > 0) {
+      CubedTurn = (master.getAnalog(ControllerAnalog::rightX) * master.getAnalog(ControllerAnalog::rightX) * master.getAnalog(ControllerAnalog::rightX));}
+    else {CubedTurn = 0;}
+
+    if (abs(master.getAnalog(ControllerAnalog::leftY)) > 0) {MasterY = master.getAnalog(ControllerAnalog::leftY);}
+    else {MasterY = 0;}
+
+    chassis->getModel()->arcade(MasterY, CubedTurn, 0.1);
     pros::delay(20);
   }
 }
