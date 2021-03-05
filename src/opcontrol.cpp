@@ -40,17 +40,12 @@ void opcontrol() {
     if (master.getDigital(ControllerDigital::L1)) {
       Roller.moveVelocity(200);
       
-      if (TopBallDetector.get() > 60 || TopBallDetector.get() == -1) {
+      if (BottomBallDetector.get() > 60 || BottomBallDetector.get() == -1) {
         Intake.moveVelocity(600);
         OutTake.moveVelocity(600);
       }
       else {
-        if (BottomBallDetector.get() > 60 || BottomBallDetector.get() == -1) {
-          Intake.moveVelocity(600);
-        }
-        else {
-          Intake.moveVelocity(0);
-        }
+        Intake.moveVelocity(0);
         OutTake.moveVelocity(0);
       }
     }

@@ -3,8 +3,8 @@
 // When set to true driver code stops
 bool isAuton = false;
 
-void CycleBalls(int Number = 1) {
-  Intake.moveVelocity(600); OutTake.moveVelocity(600);
+void CycleBalls(int Number = 1, int Speed = 500) {
+  Intake.moveVelocity(600); OutTake.moveVelocity(Speed);
   int a = 1;
   for (int i = 1; i <= Number; ++i) {
     while (TopBallDetector.get() > 100 || TopBallDetector.get() == -1) {
@@ -36,25 +36,44 @@ void moveDistance(okapi::QLength distance, int timeout) {
      }
 }
 
-void intakeController() {
-  
+bool stopBallAtTop = false;
+bool stopBallAtBottom = false;
+void intakeController(void* param) {
+  while (true) {
+    if (stopBallAtTop == true) {
+      Roller.moveVelocity(200); Intake.moveVelocity(600); OutTake.moveVelocity(60);
+      while (TopBallDetector.get() > 30 || TopBallDetector.get() == 0) {
+          pros::delay(20);
+      } 
+      // while (BottomBallDetector.get() < 170 || BottomBallDetector.get() == 0) {
+      //     pros::delay(20);
+      // }
+      Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
+      stopBallAtTop = false;
+    }
+    if (stopBallAtBottom == true) {
+      Roller.moveVelocity(200); Intake.moveVelocity(600);
+      while (BottomBallDetector.get() > 80 || BottomBallDetector.get() == 0) {
+        pros::delay(20);
+      }
+      Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
+      stopBallAtBottom = false;
+    }
+    pros::delay(30);
+  }
 }
 
-// pros::Task stopForBall_TR(stopForBall, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "My Task");
+pros::Task intakeController_TR(intakeController, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "My Task");
 
 void blueSmall() {
-  chassis->moveDistance(2_ft);
-  
-  // chassis->turnAngle(90_deg);
 }
 
 void blueSafe() {
 }
-// Position State check.
-// Should end up at the close center ball in between the middle goals
+
 void blueLarge() {
-  chassis->setState({1.3_ft, 9_ft, 0_deg});
-  chassis->turnToPoint({1.3_ft, 15_ft});
+  stopBallAtBottom = true;
+  pros::delay(20000);
 }
 
 void redSmall() {
@@ -63,108 +82,37 @@ void redSmall() {
 void redLarge() {
 }
 
+// field 141_in
 void Skills () {
-  chassis->setState({1.3_ft, 9_ft, 0_deg});
-  int a = 0;
-  // Ball to top roller
-  Roller.moveVelocity(200); Intake.moveVelocity(600); OutTake.moveVelocity(50);
-  while (BottomBallDetector.get() > 80 || BottomBallDetector.get() == -1) {
-    if (a > 40) {break;}
-    pros::delay(20);
-    a = a+1;
-  }
-  a = 0;
-  // pros::delay(200);
-  Intake.moveVelocity(200);
-  
-  // Get first ball
-  chassis->driveToPoint({3.23_ft, 8.9_ft});
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-
+  chassis->setState({9_in, 129_in, 120_deg});
   // Put ball in the corner goal
-  chassis->driveToPoint({1.7_ft, 10.6_ft});
+  chassis->driveToPoint({6.746_in, 132_in});
+  // CycleBalls(1);
+  CycleBalls(1, 300);
+
+  // Pickup second ball
+  chassis->driveToPoint({11_in, 126_in}, true);
+  stopBallAtTop = true;
+  chassis->driveToPoint({23_in, 105.75_in});
+  stopBallAtBottom = true;
+  chassis->driveToPoint({46_in, 80_in});
+  chassis->driveToPoint({11.5_in, 80.5_in});
+  CycleBalls(2);
+  chassis->driveToPoint({21_in, 80_in}, true);
+
+  // Third goal
+  stopBallAtBottom = true;
+  chassis->driveToPoint({19_in, 35_in});
+  chassis->driveToPoint({9_in, 24_in});
   CycleBalls(1);
 
-  // Get second ball
-  OutTake.moveVelocity(-50);
-  chassis->driveToPoint({5.1_ft, 8.4_ft}, true);
-  chassis.get()->setMaxVelocity(50);
-  Roller.moveVelocity(200); Intake.moveVelocity(600); OutTake.moveVelocity(50);
-  chassis->driveToPoint({5.1_ft, 6.45_ft});
-  while (BottomBallDetector.get() > 80 || BottomBallDetector.get() == -1) {
-    if (a > 40) {break;}
-    pros::delay(20);
-    a = a+1;
-  }
-  a = 0;
-  OutTake.moveVelocity(0); Roller.moveVelocity(0); Intake.moveVelocity(0);
-  chassis.get()->setMaxVelocity(75);
-
-  // Two balls in home center goal
-  chassis->driveToPoint({2.5_ft, 6_ft});
-  CycleBalls(1);
-
-  // Get third ball
-  chassis.get()->setMaxVelocity(40);
-  chassis->driveToPoint({3_ft, 6.2_ft}, true);
-  chassis.get()->setMaxVelocity(75);
-  Roller.moveVelocity(200); Intake.moveVelocity(400); OutTake.moveVelocity(50);
-  chassis->driveToPoint({3.4_ft, 2.3_ft});
-  while (BottomBallDetector.get() > 80 || BottomBallDetector.get() == -1) {
-    if (a > 40) {break;}
-    pros::delay(20);
-    a = a+1;
-  }
-  a = 0;
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-
-  // Drop into left home zone
-  chassis->driveToPoint({3_ft, 1.4_ft});
-  CycleBalls(1);
-
-  // Get forth ball
-  chassis.get()->setMaxVelocity(40);
-  chassis->driveToPoint({3.7_ft, 2.7_ft}, true);
-  chassis.get()->setMaxVelocity(75);
-  Roller.moveVelocity(170); Intake.moveVelocity(600); OutTake.moveVelocity(50);
-  chassis->driveToPoint({7.2_ft, 3.05_ft});
-  while (BottomBallDetector.get() > 80 || BottomBallDetector.get() == -1) {
-    if (a > 40) {break;}
-    pros::delay(20);
-    a = a+1;
-  }
-  a = 0;
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-
-  // one ball in far middle tower
-  chassis->driveToPoint({7.5_ft, 2.49_ft});
-  CycleBalls(1);
-
-  // get fith ball
-  chassis.get()->setMaxVelocity(40); 
-  chassis->driveToPoint({7.2_ft, 3.2_ft}, true);
-  chassis.get()->setMaxVelocity(75);
-  Roller.moveVelocity(170); Intake.moveVelocity(600); OutTake.moveVelocity(50);  
-  chassis->driveToPoint({6.9_ft, 4.75_ft});
-  while (BottomBallDetector.get() > 80 || BottomBallDetector.get() == -1) {
-    if (a > 40) {break;}
-    pros::delay(20);
-    a = a+1;
-  }
-  a = 0;
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
-
-  // Put ball in far left goal
-  chassis->driveToPoint({12_ft, 3.74_ft});
-  Roller.moveVelocity(200);
-  CycleBalls(1);
-  Intake.moveVelocity(600); OutTake.moveVelocity(-600);
-  while (BottomBallDetector.get() > 80 || BottomBallDetector.get() == -1) {
-    pros::delay(20);
-  }
-  pros::delay(3000);
-  chassis->driveToPoint({10_ft, 4_ft}, true);
-  Roller.moveVelocity(0); Intake.moveVelocity(0); OutTake.moveVelocity(0);
+  // forth goal
+  chassis->driveToPoint({46_in, 47_in}, true);
+  stopBallAtTop = true;
+  chassis->driveToPoint({75_in, 47_in});
+  stopBallAtBottom = true;
+  chassis->driveToPoint({75_in, 23.25_in});
+  chassis->driveToPoint({75_in, 10_in});
 }
 
 void redSafe() {

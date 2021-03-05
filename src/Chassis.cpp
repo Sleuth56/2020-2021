@@ -14,9 +14,9 @@ std::shared_ptr<OdomChassisController> chassis =ChassisControllerBuilder()
     .withMaxVelocity(100)
     .withMotors({7, 8}, {-6, -4})
     .withGains(
-        {0.0019, 0.000003, 0.000003}, // distance controller gains
-        {0.001, 0, 0.000003}, // turn controller gains
-        {0.0015, 0, 0.000008}  // angle controller gains (helps drive straight)
+        {0.0022, 0.000003, 0.000003}, // distance controller gains
+        {0.0057, 0, 0.000004}, // turn controller gains
+        {0.002, 0, 0.000004}  // angle controller gains (helps drive straight)
     )
     // green gearset, 4 inch wheel diameter, 11.5 inch wheelbase
     .withDimensions(AbstractMotor::gearset::green, {{4_in, 12_in}, imev5GreenTPR})
@@ -45,7 +45,7 @@ void ChassisOpcontrol(void* param) {
     lv_chart_set_next(chart, LimeLine, backRightMotor.getTemperature());
 
     if (abs(master.getAnalog(ControllerAnalog::rightX)) > 0) {
-      CubedTurn = (master.getAnalog(ControllerAnalog::rightX) * master.getAnalog(ControllerAnalog::rightX) * master.getAnalog(ControllerAnalog::rightX));}
+      CubedTurn = ((master.getAnalog(ControllerAnalog::rightX) * master.getAnalog(ControllerAnalog::rightX) * master.getAnalog(ControllerAnalog::rightX) / 1.5));}
     else {CubedTurn = 0;}
 
     if (abs(master.getAnalog(ControllerAnalog::leftY)) > 0) {MasterY = master.getAnalog(ControllerAnalog::leftY);}
