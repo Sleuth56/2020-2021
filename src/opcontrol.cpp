@@ -15,6 +15,15 @@ MotorGroup Roller({-5, 3});
 
 int startingAnglerAngle;
 
+
+void Diagnostics(void* param) {
+	while (true) {
+		updateLineVariable(2, TopBallDetector.get());
+    updateLineVariable(3, BottomBallDetector.get());
+    pros::delay(50);
+	}
+}
+
 void opcontrol() {
   isAuton = false;
   lv_tabview_set_tab_act(tabview, 3, true);
@@ -33,9 +42,6 @@ void opcontrol() {
     lv_chart_set_next(chart, WhiteLine, RightRollerMotor.getTemperature());
     lv_chart_set_next(chart, PurpleLine, Intake.getTemperature());
     lv_chart_set_next(chart, OrangeLine, OutTake.getTemperature());
-
-    updateLineVariable(2, TopBallDetector.get());
-    updateLineVariable(3, BottomBallDetector.get());
 
     if (master.getDigital(ControllerDigital::L1)) {
       Roller.moveVelocity(200);

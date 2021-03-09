@@ -156,6 +156,7 @@ static const char * btnm_map[] = {"BSm", "BSaf", "BL", "Skills", "RL", "RSaf", "
 
 void runScreen() {
   pros::Task startAuton_TR(startAuton, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "My Task");
+  pros::Task Diagnostics_TR(Diagnostics, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Diagnostics Task");
   //Sets theme to alien.
   theme_main = lv_theme_alien_init(100, NULL);
   lv_theme_set_current(theme_main);

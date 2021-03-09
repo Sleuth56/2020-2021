@@ -11,3 +11,5 @@ extern okapi::Motor LeftRollerMotor;
 extern okapi::Motor Intake;
 extern okapi::Motor OutTake;
 extern okapi::MotorGroup Roller;
+
+extern void Diagnostics(void* param);
