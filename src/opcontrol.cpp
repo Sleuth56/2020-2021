@@ -5,13 +5,13 @@ Controller master (ControllerId::master);
 Controller partner (ControllerId::partner);
 
 DistanceSensor TopBallDetector(13);
-DistanceSensor BottomBallDetector(12);
+DistanceSensor BottomBallDetector(11);
 
-Motor RightRollerMotor(5, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor LeftRollerMotor(3, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor Intake(19, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-Motor OutTake(20, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
-MotorGroup Roller({-5, 3});
+Motor RightRollerMotor(1, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor LeftRollerMotor(5, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor Intake(20, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+Motor OutTake(19, true, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+MotorGroup Roller({5, -1});
 
 int startingAnglerAngle;
 
