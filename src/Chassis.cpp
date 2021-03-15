@@ -12,7 +12,6 @@ Motor backRightMotor(6, true, AbstractMotor::gearset::green, AbstractMotor::enco
 
 std::shared_ptr<OdomChassisController> chassis =ChassisControllerBuilder()
     .withMaxVelocity(100)
-    .withMaxRates(0.01, 0.01)
     .withMotors({3, 4}, {-2, -6})
     .withGains(
         {0.0022, 0.000003, 0.000003}, // distance controller gains
