@@ -1,18 +1,19 @@
 #include "main.h"
 
-RotationSensor leftEncoder(9, true);
-RotationSensor rightEncoder(10, true);
+RotationSensor leftEncoder(8, true);
+RotationSensor rightEncoder(7, true);
 
 bool chassisBrake = false;
 
-Motor frontLeftMotor(7, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor backLeftMotor(8, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor frontRightMotor(4, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor frontLeftMotor(3, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor backLeftMotor(4, false, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
+Motor frontRightMotor(2, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor backRightMotor(6, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 
 std::shared_ptr<OdomChassisController> chassis =ChassisControllerBuilder()
     .withMaxVelocity(100)
-    .withMotors({7, 8}, {-6, -4})
+    .withMaxRates(0.01, 0.01)
+    .withMotors({3, 4}, {-2, -6})
     .withGains(
         {0.0022, 0.000003, 0.000003}, // distance controller gains
         {0.0057, 0, 0.000004}, // turn controller gains
